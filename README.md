@@ -1,10 +1,10 @@
 # Exploring Simulations
 
 This repository contains the text of the ebook 
-_Exploring Simulations: Simulating Games of Chance in R_ by 
+<a href="https://www.gastonsanchez.com/exploring-simulations" target="_blank"><strong>Exploring Simulations: Simulating Games of Chance in R</strong></a> by 
 <a href="https://www.gastonsanchez.com" target="_blank">Gaston Sanchez</a>
 
-<a href="https://www.gastonsanchez.com/exploring-simulations" target="_blank"><img src="demere-cover.png" alt="cover image" height="300" width="600"></a>
+<a href="https://www.gastonsanchez.com/exploring-simulations" target="_blank"><img src="demere-cover.png" alt="cover image" height="200" width="700"></a>
 
 
 ## Donation
