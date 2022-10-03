@@ -1039,8 +1039,8 @@ We can now compute the proportion of wins:
 \hypertarget{playing-game-a-100-times}{%
 \chapter{Playing Game-A 100 times}\label{playing-game-a-100-times}}
 
-With all the coding elements that we have so far, it's time to play Game-A 100
-times, and see what the proportion of wins turns out to be:
+With all the coding elements that we have discussed so far, it's time to play
+Game-A 100 times, and see what the proportion of wins turns out to be:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1078,12 +1078,16 @@ times, and see what the proportion of wins turns out to be:
 ## [1] 0.5
 \end{verbatim}
 
+In this particular simulation of 100 games, we end up with a
+0.5 proportion of wins. In other words, 50 percent
+of the games are wins, and the other 50 percent of the
+games are losses. You didn't gain any money, but you didn't lose either.
+
 \hypertarget{plotting-cumulative-gains}{%
 \section{Plotting Cumulative Gains}\label{plotting-cumulative-gains}}
 
-It would be nice to visualize the sequence of wins and losses. To make things
-more interesting, let's assume that you are paid \$1 if you win a game, but also
-that you pay \$1 if you lose a game. That is:
+To make things more interesting, let's assume that you are paid \$1 if you win
+a game, but also that you pay \$1 if you lose a game. That is:
 
 \begin{itemize}
 \item
@@ -1092,30 +1096,128 @@ that you pay \$1 if you lose a game. That is:
   gain \texttt{-1} if you lose a game
 \end{itemize}
 
+This means that we need to create another object to store this ``gains''
+information. This can be done in different ways. One option is to initialize
+a vector \texttt{gains} of length \texttt{number\_games}, and set its elements to \texttt{-1}.
+Then use the logical vector \texttt{wins} to do logical subsetting and switch to \texttt{1}
+the elements matching the \texttt{TRUE} values in \texttt{wins}, like this:
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \CommentTok{\# vector of gains}
 \NormalTok{gains }\OtherTok{=} \FunctionTok{rep}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{, number\_games)  }\CommentTok{\# initialize with all {-}1 elements}
 \NormalTok{gains[wins] }\OtherTok{=} \DecValTok{1}                \CommentTok{\# switch to +1 for every win}
-
-\CommentTok{\# cumulative gains}
-\NormalTok{cumulative\_gains }\OtherTok{=} \FunctionTok{cumsum}\NormalTok{(gains)}
 \end{Highlighting}
 \end{Shaded}
 
-As you can tell, in this particular simulation of 100 games, the total
-proportion of wins is 0.5, and the total gain is
-0. You didn't gain any money, but you didn't
-lose either.
-
-Here's the graph using base \texttt{"graphics"} functions:
+The vector \texttt{gains} is a numeric vector containing as many \texttt{1}'s as wins, and
+as many \texttt{-1} as losses:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{number\_games, cumulative\_gains, }\AttributeTok{type =} \StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{)}
-\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"tomato"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{table}\NormalTok{(wins)}
 \end{Highlighting}
 \end{Shaded}
+
+\begin{verbatim}
+## wins
+## FALSE  TRUE 
+##    50    50
+\end{verbatim}
+
+More interestingly, we can use \texttt{cumsum()} to obtain the cumulative addition of
+all elements in \texttt{wins}. The output vector, \texttt{cumulative\_gains}, will contain
+the sequence of cumulative gains along the 100 games.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# cumulative gains}
+\NormalTok{cumulative\_gains }\OtherTok{=} \FunctionTok{cumsum}\NormalTok{(gains)}
+
+\FunctionTok{head}\NormalTok{(cumulative\_gains, }\AttributeTok{n =} \DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1]  1  2  1  0 -1 -2 -1 -2 -3 -4
+\end{verbatim}
+
+As you can tell from this output, the first game is a win, as well as the
+second one. But then, we get a decreasing sequence with next four elements
+in \texttt{cumulative\_gains}: \texttt{1\ 0\ -1\ -2}, indicating that games 3 to 6 are
+consecutive losses.
+
+\hypertarget{cumulative-gains-with-plot}{%
+\subsection{\texorpdfstring{Cumulative Gains with \texttt{plot()}}{Cumulative Gains with plot()}}\label{cumulative-gains-with-plot}}
+
+It would be nice to visualize the sequence of wins and losses using the
+vector of cumulative gains.
+
+Using traditional \texttt{"graphics"} functions, we can create a line graph with
+\texttt{plot()}. In the x-axis we pass a sequence vector of games; as for the y-axis
+we pass the \texttt{cumulative\_gains} vector.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{number\_games, cumulative\_gains, }\AttributeTok{type =} \StringTok{\textquotesingle{}l\textquotesingle{}}\NormalTok{,}
+     \AttributeTok{xlab =} \StringTok{"games"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"cumulative gain"}\NormalTok{, }\AttributeTok{las =} \DecValTok{1}\NormalTok{,}
+     \AttributeTok{lwd =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{col =} \StringTok{"\#318BEC"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{0}\NormalTok{, }\AttributeTok{col =} \StringTok{"gray70"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{exploring-simulations_files/figure-latex/unnamed-chunk-44-1} \end{center}
+
+\hypertarget{cumulative-gains-with-ggplot2}{%
+\subsection{\texorpdfstring{Cumulative Gains with \texttt{ggplot2}}{Cumulative Gains with ggplot2}}\label{cumulative-gains-with-ggplot2}}
+
+In this section we are assuming that you have loaded the package \texttt{"tidyverse"}
+which contains \texttt{"ggplot2"}.
+
+If you prefer to make graphics with functions from the package \texttt{"ggplot2"},
+we first need to assemble the data to be plotted into a data frame. One way to
+create this table is as follows:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tbl }\OtherTok{=} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{game =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{number\_games,}
+  \AttributeTok{gain =}\NormalTok{ gains,}
+  \AttributeTok{cumulative\_gain =} \FunctionTok{cumsum}\NormalTok{(gains)}
+\NormalTok{)}
+
+\FunctionTok{head}\NormalTok{(tbl)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   game gain cumulative_gain
+## 1    1    1               1
+## 2    2    1               2
+## 3    3   -1               1
+## 4    4   -1               0
+## 5    5   -1              -1
+## 6    6   -1              -2
+\end{verbatim}
+
+Having the appropriate data in a data frame object \texttt{tbl}, we can now proceed
+to make a line graph with the number game in the x-axis, and the cumulative
+gain in the y-axis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ tbl, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ game, }\AttributeTok{y =}\NormalTok{ cumulative\_gain)) }\SpecialCharTok{+} 
+  \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{0}\NormalTok{, }\AttributeTok{color =} \StringTok{"gray70"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{color =} \StringTok{"\#318BEC"}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"games"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"cumulative gain"}\NormalTok{, }
+       \AttributeTok{title =} \StringTok{"Playing Game{-}A 100 times"}\NormalTok{,}
+       \AttributeTok{subtitle =} \StringTok{"Sequence of cumulative gains"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.8\linewidth]{exploring-simulations_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 \hypertarget{running-various-simulations}{%
 \chapter{Running Various Simulations}\label{running-various-simulations}}

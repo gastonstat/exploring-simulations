@@ -23,6 +23,8 @@ anonymous-functions-and-apply
 number-of-wins-with-apply
 playing-game-a-100-times
 plotting-cumulative-gains
+cumulative-gains-with-plot
+cumulative-gains-with-ggplot2
 running-various-simulations
 embedded-for-loops
 running-even-more-simulations

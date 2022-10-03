@@ -173,7 +173,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html"><i class="fa fa-check"></i><b>5</b> Playing Game-A 100 times</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Plotting Cumulative Gains</a></li>
+<li class="chapter" data-level="5.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Plotting Cumulative Gains</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-plot"><i class="fa fa-check"></i><b>5.1.1</b> Cumulative Gains with <code>plot()</code></a></li>
+<li class="chapter" data-level="5.1.2" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-ggplot2"><i class="fa fa-check"></i><b>5.1.2</b> Cumulative Gains with <code>ggplot2</code></a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="running-various-simulations.html"><a href="running-various-simulations.html"><i class="fa fa-check"></i><b>6</b> Running Various Simulations</a>
 <ul>
@@ -202,8 +206,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="playing-game-a-100-times" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">5</span> Playing Game-A 100 times<a href="playing-game-a-100-times.html#playing-game-a-100-times" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>With all the coding elements that we have so far, it’s time to play Game-A 100
-times, and see what the proportion of wins turns out to be:</p>
+<p>With all the coding elements that we have discussed so far, it’s time to play
+Game-A 100 times, and see what the proportion of wins turns out to be:</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="playing-game-a-100-times.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co"># random seed (for reproducibility purposes)</span></span>
 <span id="cb65-2"><a href="playing-game-a-100-times.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">753</span>)</span>
 <span id="cb65-3"><a href="playing-game-a-100-times.html#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -232,29 +236,92 @@ times, and see what the proportion of wins turns out to be:</p>
 <span id="cb65-26"><a href="playing-game-a-100-times.html#cb65-26" aria-hidden="true" tabindex="-1"></a>prop_wins <span class="ot">=</span> <span class="fu">sum</span>(wins) <span class="sc">/</span> number_games</span>
 <span id="cb65-27"><a href="playing-game-a-100-times.html#cb65-27" aria-hidden="true" tabindex="-1"></a>prop_wins</span></code></pre></div>
 <pre><code>## [1] 0.5</code></pre>
+<p>In this particular simulation of 100 games, we end up with a
+0.5 proportion of wins. In other words, 50 percent
+of the games are wins, and the other 50 percent of the
+games are losses. You didn’t gain any money, but you didn’t lose either.</p>
 <div id="plotting-cumulative-gains" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Plotting Cumulative Gains<a href="playing-game-a-100-times.html#plotting-cumulative-gains" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>It would be nice to visualize the sequence of wins and losses. To make things
-more interesting, let’s assume that you are paid $1 if you win a game, but also
-that you pay $1 if you lose a game. That is:</p>
+<p>To make things more interesting, let’s assume that you are paid $1 if you win
+a game, but also that you pay $1 if you lose a game. That is:</p>
 <ul>
 <li><p>gain <code>1</code> if you win a game</p></li>
 <li><p>gain <code>-1</code> if you lose a game</p></li>
 </ul>
+<p>This means that we need to create another object to store this “gains”
+information. This can be done in different ways. One option is to initialize
+a vector <code>gains</code> of length <code>number_games</code>, and set its elements to <code>-1</code>.
+Then use the logical vector <code>wins</code> to do logical subsetting and switch to <code>1</code>
+the elements matching the <code>TRUE</code> values in <code>wins</code>, like this:</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="playing-game-a-100-times.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="co"># vector of gains</span></span>
 <span id="cb67-2"><a href="playing-game-a-100-times.html#cb67-2" aria-hidden="true" tabindex="-1"></a>gains <span class="ot">=</span> <span class="fu">rep</span>(<span class="sc">-</span><span class="dv">1</span>, number_games)  <span class="co"># initialize with all -1 elements</span></span>
-<span id="cb67-3"><a href="playing-game-a-100-times.html#cb67-3" aria-hidden="true" tabindex="-1"></a>gains[wins] <span class="ot">=</span> <span class="dv">1</span>                <span class="co"># switch to +1 for every win</span></span>
-<span id="cb67-4"><a href="playing-game-a-100-times.html#cb67-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb67-5"><a href="playing-game-a-100-times.html#cb67-5" aria-hidden="true" tabindex="-1"></a><span class="co"># cumulative gains</span></span>
-<span id="cb67-6"><a href="playing-game-a-100-times.html#cb67-6" aria-hidden="true" tabindex="-1"></a>cumulative_gains <span class="ot">=</span> <span class="fu">cumsum</span>(gains)</span></code></pre></div>
-<p>As you can tell, in this particular simulation of 100 games, the total
-proportion of wins is 0.5, and the total gain is
-0. You didn’t gain any money, but you didn’t
-lose either.</p>
-<p>Here’s the graph using base <code>"graphics"</code> functions:</p>
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="playing-game-a-100-times.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>number_games, cumulative_gains, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>)</span>
-<span id="cb68-2"><a href="playing-game-a-100-times.html#cb68-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;tomato&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<span id="cb67-3"><a href="playing-game-a-100-times.html#cb67-3" aria-hidden="true" tabindex="-1"></a>gains[wins] <span class="ot">=</span> <span class="dv">1</span>                <span class="co"># switch to +1 for every win</span></span></code></pre></div>
+<p>The vector <code>gains</code> is a numeric vector containing as many <code>1</code>’s as wins, and
+as many <code>-1</code> as losses:</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="playing-game-a-100-times.html#cb68-1" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wins)</span></code></pre></div>
+<pre><code>## wins
+## FALSE  TRUE 
+##    50    50</code></pre>
+<p>More interestingly, we can use <code>cumsum()</code> to obtain the cumulative addition of
+all elements in <code>wins</code>. The output vector, <code>cumulative_gains</code>, will contain
+the sequence of cumulative gains along the 100 games.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="playing-game-a-100-times.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="co"># cumulative gains</span></span>
+<span id="cb70-2"><a href="playing-game-a-100-times.html#cb70-2" aria-hidden="true" tabindex="-1"></a>cumulative_gains <span class="ot">=</span> <span class="fu">cumsum</span>(gains)</span>
+<span id="cb70-3"><a href="playing-game-a-100-times.html#cb70-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb70-4"><a href="playing-game-a-100-times.html#cb70-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cumulative_gains, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  [1]  1  2  1  0 -1 -2 -1 -2 -3 -4</code></pre>
+<p>As you can tell from this output, the first game is a win, as well as the
+second one. But then, we get a decreasing sequence with next four elements
+in <code>cumulative_gains</code>: <code>1 0 -1 -2</code>, indicating that games 3 to 6 are
+consecutive losses.</p>
+<div id="cumulative-gains-with-plot" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Cumulative Gains with <code>plot()</code><a href="playing-game-a-100-times.html#cumulative-gains-with-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>It would be nice to visualize the sequence of wins and losses using the
+vector of cumulative gains.</p>
+<p>Using traditional <code>"graphics"</code> functions, we can create a line graph with
+<code>plot()</code>. In the x-axis we pass a sequence vector of games; as for the y-axis
+we pass the <code>cumulative_gains</code> vector.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="playing-game-a-100-times.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">1</span><span class="sc">:</span>number_games, cumulative_gains, <span class="at">type =</span> <span class="st">&#39;l&#39;</span>,</span>
+<span id="cb72-2"><a href="playing-game-a-100-times.html#cb72-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;games&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;cumulative gain&quot;</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
+<span id="cb72-3"><a href="playing-game-a-100-times.html#cb72-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">lwd =</span> <span class="fl">1.5</span>, <span class="at">col =</span> <span class="st">&quot;#318BEC&quot;</span>)</span>
+<span id="cb72-4"><a href="playing-game-a-100-times.html#cb72-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;gray70&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="exploring-simulations_files/figure-html/unnamed-chunk-44-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="cumulative-gains-with-ggplot2" class="section level3 hasAnchor" number="5.1.2">
+<h3><span class="header-section-number">5.1.2</span> Cumulative Gains with <code>ggplot2</code><a href="playing-game-a-100-times.html#cumulative-gains-with-ggplot2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this section we are assuming that you have loaded the package <code>"tidyverse"</code>
+which contains <code>"ggplot2"</code>.</p>
+<p>If you prefer to make graphics with functions from the package <code>"ggplot2"</code>,
+we first need to assemble the data to be plotted into a data frame. One way to
+create this table is as follows:</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="playing-game-a-100-times.html#cb73-1" aria-hidden="true" tabindex="-1"></a>tbl <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb73-2"><a href="playing-game-a-100-times.html#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">game =</span> <span class="dv">1</span><span class="sc">:</span>number_games,</span>
+<span id="cb73-3"><a href="playing-game-a-100-times.html#cb73-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gain =</span> gains,</span>
+<span id="cb73-4"><a href="playing-game-a-100-times.html#cb73-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cumulative_gain =</span> <span class="fu">cumsum</span>(gains)</span>
+<span id="cb73-5"><a href="playing-game-a-100-times.html#cb73-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb73-6"><a href="playing-game-a-100-times.html#cb73-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-7"><a href="playing-game-a-100-times.html#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(tbl)</span></code></pre></div>
+<pre><code>##   game gain cumulative_gain
+## 1    1    1               1
+## 2    2    1               2
+## 3    3   -1               1
+## 4    4   -1               0
+## 5    5   -1              -1
+## 6    6   -1              -2</code></pre>
+<p>Having the appropriate data in a data frame object <code>tbl</code>, we can now proceed
+to make a line graph with the number game in the x-axis, and the cumulative
+gain in the y-axis.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="playing-game-a-100-times.html#cb75-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tbl, <span class="fu">aes</span>(<span class="at">x =</span> game, <span class="at">y =</span> cumulative_gain)) <span class="sc">+</span> </span>
+<span id="cb75-2"><a href="playing-game-a-100-times.html#cb75-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;gray70&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-3"><a href="playing-game-a-100-times.html#cb75-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">&quot;#318BEC&quot;</span>, <span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb75-4"><a href="playing-game-a-100-times.html#cb75-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;games&quot;</span>, </span>
+<span id="cb75-5"><a href="playing-game-a-100-times.html#cb75-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;cumulative gain&quot;</span>, </span>
+<span id="cb75-6"><a href="playing-game-a-100-times.html#cb75-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;Playing Game-A 100 times&quot;</span>,</span>
+<span id="cb75-7"><a href="playing-game-a-100-times.html#cb75-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Sequence of cumulative gains&quot;</span>) <span class="sc">+</span></span>
+<span id="cb75-8"><a href="playing-game-a-100-times.html#cb75-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="exploring-simulations_files/figure-html/unnamed-chunk-46-1.png" width="80%" style="display: block; margin: auto;" /></p>
 
+</div>
 </div>
 </div>
             </section>
