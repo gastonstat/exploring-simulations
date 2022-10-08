@@ -21,10 +21,16 @@ vectorized-loops-with-apply
 function-apply
 anonymous-functions-and-apply
 number-of-wins-with-apply
-playing-game-a-100-times
+playing-game1-100times
+computing-cumulative-gains
 plotting-cumulative-gains
 cumulative-gains-with-plot
 cumulative-gains-with-ggplot2
+animated-ggplot-graphic
 running-various-simulations
 embedded-for-loops
 running-even-more-simulations
+graphing-cumulative-gains
+plotting-the-first-simulation
+plotting-the-first-four-simulations
+plotting-all-simulations

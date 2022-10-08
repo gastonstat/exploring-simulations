@@ -171,19 +171,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="vectorized-loops-with-apply.html"><a href="vectorized-loops-with-apply.html#number-of-wins-with-apply"><i class="fa fa-check"></i><b>4.2.1</b> Number of wins with <code>apply()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html"><i class="fa fa-check"></i><b>5</b> Playing Game-A 100 times</a>
+<li class="chapter" data-level="5" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html"><i class="fa fa-check"></i><b>5</b> Playing Game-A 100 times</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Plotting Cumulative Gains</a>
+<li class="chapter" data-level="5.1" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#computing-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Computing Cumulative Gains</a></li>
+<li class="chapter" data-level="5.2" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.2</b> Plotting Cumulative Gains</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-plot"><i class="fa fa-check"></i><b>5.1.1</b> Cumulative Gains with <code>plot()</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-ggplot2"><i class="fa fa-check"></i><b>5.1.2</b> Cumulative Gains with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.1" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#cumulative-gains-with-plot"><i class="fa fa-check"></i><b>5.2.1</b> Cumulative Gains with <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#cumulative-gains-with-ggplot2"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative Gains with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#animated-ggplot-graphic"><i class="fa fa-check"></i><b>5.2.3</b> Animated ggplot graphic</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="running-various-simulations.html"><a href="running-various-simulations.html"><i class="fa fa-check"></i><b>6</b> Running Various Simulations</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="running-various-simulations.html"><a href="running-various-simulations.html#embedded-for-loops"><i class="fa fa-check"></i><b>6.1</b> Embedded <code>for()</code> loops</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html"><i class="fa fa-check"></i><b>7</b> Running Even More Simulations</a></li>
+<li class="chapter" data-level="7" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html"><i class="fa fa-check"></i><b>7</b> Running Even More Simulations</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#graphing-cumulative-gains"><i class="fa fa-check"></i><b>7.1</b> Graphing Cumulative Gains</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-the-first-simulation"><i class="fa fa-check"></i><b>7.1.1</b> Plotting the first simulation</a></li>
+<li class="chapter" data-level="7.1.2" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-the-first-four-simulations"><i class="fa fa-check"></i><b>7.1.2</b> Plotting the first four simulations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-all-simulations"><i class="fa fa-check"></i><b>7.1.3</b> Plotting all simulations</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://www.gastonsanchez.com" target="blank">Gaston Sanchez</a></li>
 
@@ -213,40 +223,48 @@ view, the core of this strategy is the utilization of embedded <code>for()</code
 feeling of the probability of winning Game-A—approximated by the proportion
 of wins—we need to take things to the next level: with more simulations, and
 many more games.</p>
+<p>Exactly how many more simulations, and how many more games? There is no
+definitive answer to this question. Obviously the more games and simulations,
+the better. To keep things simple, but also fairly realistic, I think 100
+simulations and 1000 games is a reasonable choice. The following diagram
+illustrates what the <code>games</code> matrix (of 1000 rows and 4 columns) for each of
+the 100 simulations could look like:</p>
 <p><img src="images/demere-100-sims-loop.png" width="90%" style="display: block; margin: auto;" /></p>
 <p>The following code uses 1000 games and 100 simulations. This allows us to
 play Game-A for a total of <span class="math inline">\(1,000 \times 100 = 100,000\)</span> times. With this many
 games, we can safely calculate the average proportion of wins, and use this
 value to estimate the probability of winning Game-A:</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="running-even-more-simulations.html#cb82-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">753</span>)</span>
-<span id="cb82-2"><a href="running-even-more-simulations.html#cb82-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-3"><a href="running-even-more-simulations.html#cb82-3" aria-hidden="true" tabindex="-1"></a><span class="co"># main inputs</span></span>
-<span id="cb82-4"><a href="running-even-more-simulations.html#cb82-4" aria-hidden="true" tabindex="-1"></a>die <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb82-5"><a href="running-even-more-simulations.html#cb82-5" aria-hidden="true" tabindex="-1"></a>number_games <span class="ot">=</span> <span class="dv">1000</span></span>
-<span id="cb82-6"><a href="running-even-more-simulations.html#cb82-6" aria-hidden="true" tabindex="-1"></a>number_sims <span class="ot">=</span> <span class="dv">100</span></span>
-<span id="cb82-7"><a href="running-even-more-simulations.html#cb82-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-8"><a href="running-even-more-simulations.html#cb82-8" aria-hidden="true" tabindex="-1"></a><span class="co"># matrix to store simulation outputs</span></span>
-<span id="cb82-9"><a href="running-even-more-simulations.html#cb82-9" aria-hidden="true" tabindex="-1"></a>simulations <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> number_games, <span class="at">ncol =</span> number_sims)</span>
-<span id="cb82-10"><a href="running-even-more-simulations.html#cb82-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-11"><a href="running-even-more-simulations.html#cb82-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sim <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number_sims) {</span>
-<span id="cb82-12"><a href="running-even-more-simulations.html#cb82-12" aria-hidden="true" tabindex="-1"></a>  games <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> number_games, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
-<span id="cb82-13"><a href="running-even-more-simulations.html#cb82-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (game <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number_games) {</span>
-<span id="cb82-14"><a href="running-even-more-simulations.html#cb82-14" aria-hidden="true" tabindex="-1"></a>    games[game, ] <span class="ot">=</span> <span class="fu">sample</span>(die, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb82-15"><a href="running-even-more-simulations.html#cb82-15" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb82-16"><a href="running-even-more-simulations.html#cb82-16" aria-hidden="true" tabindex="-1"></a>  any_sixes <span class="ot">=</span> <span class="fu">apply</span>(games, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">any</span>(x <span class="sc">==</span> <span class="dv">6</span>))</span>
-<span id="cb82-17"><a href="running-even-more-simulations.html#cb82-17" aria-hidden="true" tabindex="-1"></a>  simulations[ ,sim] <span class="ot">=</span> <span class="fu">ifelse</span>(any_sixes, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
-<span id="cb82-18"><a href="running-even-more-simulations.html#cb82-18" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb82-19"><a href="running-even-more-simulations.html#cb82-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-20"><a href="running-even-more-simulations.html#cb82-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(simulations) <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;game&quot;</span>, <span class="dv">1</span><span class="sc">:</span>number_games)</span>
-<span id="cb82-21"><a href="running-even-more-simulations.html#cb82-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(simulations) <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;sim&quot;</span>, <span class="dv">1</span><span class="sc">:</span>number_sims)</span>
-<span id="cb82-22"><a href="running-even-more-simulations.html#cb82-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-23"><a href="running-even-more-simulations.html#cb82-23" aria-hidden="true" tabindex="-1"></a>total_wins <span class="ot">=</span> <span class="fu">apply</span>(simulations, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">sum</span>(x<span class="sc">==</span><span class="dv">1</span>))</span>
-<span id="cb82-24"><a href="running-even-more-simulations.html#cb82-24" aria-hidden="true" tabindex="-1"></a>prop_wins <span class="ot">=</span> total_wins <span class="sc">/</span> number_games</span>
-<span id="cb82-25"><a href="running-even-more-simulations.html#cb82-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb82-26"><a href="running-even-more-simulations.html#cb82-26" aria-hidden="true" tabindex="-1"></a><span class="co"># mean win-proportion</span></span>
-<span id="cb82-27"><a href="running-even-more-simulations.html#cb82-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prop_wins)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="running-even-more-simulations.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">753</span>)</span>
+<span id="cb86-2"><a href="running-even-more-simulations.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="running-even-more-simulations.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="co"># main inputs</span></span>
+<span id="cb86-4"><a href="running-even-more-simulations.html#cb86-4" aria-hidden="true" tabindex="-1"></a>die <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb86-5"><a href="running-even-more-simulations.html#cb86-5" aria-hidden="true" tabindex="-1"></a>number_games <span class="ot">=</span> <span class="dv">1000</span></span>
+<span id="cb86-6"><a href="running-even-more-simulations.html#cb86-6" aria-hidden="true" tabindex="-1"></a>number_sims <span class="ot">=</span> <span class="dv">100</span></span>
+<span id="cb86-7"><a href="running-even-more-simulations.html#cb86-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-8"><a href="running-even-more-simulations.html#cb86-8" aria-hidden="true" tabindex="-1"></a><span class="co"># matrix to store simulation outputs</span></span>
+<span id="cb86-9"><a href="running-even-more-simulations.html#cb86-9" aria-hidden="true" tabindex="-1"></a>simulations <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> number_games, <span class="at">ncol =</span> number_sims)</span>
+<span id="cb86-10"><a href="running-even-more-simulations.html#cb86-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-11"><a href="running-even-more-simulations.html#cb86-11" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (sim <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number_sims) {</span>
+<span id="cb86-12"><a href="running-even-more-simulations.html#cb86-12" aria-hidden="true" tabindex="-1"></a>  games <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> number_games, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
+<span id="cb86-13"><a href="running-even-more-simulations.html#cb86-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (game <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number_games) {</span>
+<span id="cb86-14"><a href="running-even-more-simulations.html#cb86-14" aria-hidden="true" tabindex="-1"></a>    games[game, ] <span class="ot">=</span> <span class="fu">sample</span>(die, <span class="at">size =</span> <span class="dv">4</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb86-15"><a href="running-even-more-simulations.html#cb86-15" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb86-16"><a href="running-even-more-simulations.html#cb86-16" aria-hidden="true" tabindex="-1"></a>  any_sixes <span class="ot">=</span> <span class="fu">apply</span>(games, <span class="dv">1</span>, <span class="cf">function</span>(x) <span class="fu">any</span>(x <span class="sc">==</span> <span class="dv">6</span>))</span>
+<span id="cb86-17"><a href="running-even-more-simulations.html#cb86-17" aria-hidden="true" tabindex="-1"></a>  simulations[ ,sim] <span class="ot">=</span> <span class="fu">ifelse</span>(any_sixes, <span class="dv">1</span>, <span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb86-18"><a href="running-even-more-simulations.html#cb86-18" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb86-19"><a href="running-even-more-simulations.html#cb86-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-20"><a href="running-even-more-simulations.html#cb86-20" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(simulations) <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;game&quot;</span>, <span class="dv">1</span><span class="sc">:</span>number_games)</span>
+<span id="cb86-21"><a href="running-even-more-simulations.html#cb86-21" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(simulations) <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;sim&quot;</span>, <span class="dv">1</span><span class="sc">:</span>number_sims)</span>
+<span id="cb86-22"><a href="running-even-more-simulations.html#cb86-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-23"><a href="running-even-more-simulations.html#cb86-23" aria-hidden="true" tabindex="-1"></a>total_wins <span class="ot">=</span> <span class="fu">apply</span>(simulations, <span class="dv">2</span>, <span class="cf">function</span>(x) <span class="fu">sum</span>(x<span class="sc">==</span><span class="dv">1</span>))</span>
+<span id="cb86-24"><a href="running-even-more-simulations.html#cb86-24" aria-hidden="true" tabindex="-1"></a>prop_wins <span class="ot">=</span> total_wins <span class="sc">/</span> number_games</span>
+<span id="cb86-25"><a href="running-even-more-simulations.html#cb86-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-26"><a href="running-even-more-simulations.html#cb86-26" aria-hidden="true" tabindex="-1"></a><span class="co"># mean win-proportion</span></span>
+<span id="cb86-27"><a href="running-even-more-simulations.html#cb86-27" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(prop_wins)</span></code></pre></div>
 <pre><code>## [1] 0.51674</code></pre>
-<p>As you can tell, the average proportion of wins turns out to be 0.51674 which is pretty close to the theoretical probability of winning Game-A</p>
+<p>As you can tell, the average proportion of wins turns out to be
+0.51674 which is pretty close to the theoretical probability of
+winning Game-A</p>
 <p><span class="math display">\[\begin{align*}
 Prob(\text{at least one six in 4 rolls}) &amp;= 1 - Prob(\text{no six in 4 rolls}) \\
 &amp;= 1 - \left( \frac{5}{6} \right)^4 \\
@@ -255,7 +273,110 @@ Prob(\text{at least one six in 4 rolls}) &amp;= 1 - Prob(\text{no six in 4 rolls
 <p>Of course, if you change the random seed and rerun this simulation, you will
 very likely obtain a slightly different proportion of wins. But still close
 enough to the actual theoretical probability of winning Game-A.</p>
+<div id="graphing-cumulative-gains" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Graphing Cumulative Gains<a href="running-even-more-simulations.html#graphing-cumulative-gains" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Like in the preceding chapter, let’s visualize what’s going on with the
+sequence of cumulative gains—assuming you gain $1 if you win a game, and
+you gain -$1 if you lose a game.</p>
+<div id="plotting-the-first-simulation" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Plotting the first simulation<a href="running-even-more-simulations.html#plotting-the-first-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The main data object that we have is the matrix <code>simulations</code>. This is a
+<code>number_games</code> by <code>number_sims</code> matrix. So let’s begin with a <em>ggplot</em> to
+visualize the cumulative gains of the games in the first simulation. That is,
+the games in the first column of this matrix.</p>
+<p>Because we are interested in making a graph with <code>"ggplot2"</code>, the first step
+consists of creating a data frame. Perhaps the simplest thing to do is to
+assemble a 2-column table <code>dat_sim1</code>: column <code>games</code> for the number of games,
+and another column <code>gain</code> for the cumulative gain in the games of the first
+simulation.</p>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="running-even-more-simulations.html#cb88-1" aria-hidden="true" tabindex="-1"></a>dat_sim1 <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb88-2"><a href="running-even-more-simulations.html#cb88-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">games =</span> <span class="dv">1</span><span class="sc">:</span>number_games,</span>
+<span id="cb88-3"><a href="running-even-more-simulations.html#cb88-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">gain =</span> <span class="fu">cumsum</span>(simulations[ ,<span class="dv">1</span>])</span>
+<span id="cb88-4"><a href="running-even-more-simulations.html#cb88-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb88-5"><a href="running-even-more-simulations.html#cb88-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb88-6"><a href="running-even-more-simulations.html#cb88-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(dat_sim1, <span class="at">n =</span> <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##        games gain
+## game1      1    1
+## game2      2    2
+## game3      3    1
+## game4      4    0
+## game5      5   -1
+## game6      6   -2
+## game7      7   -1
+## game8      8   -2
+## game9      9   -3
+## game10    10   -4</code></pre>
+<p>The next step is to pass <code>dat_sim1</code> to <code>ggplot()</code> and friends to obtain a
+timeline, very similar to the one obtain in chapter
+<a href="playing-game1-100times.html#playing-game1-100times">Playing Game-A 100 times</a></p>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="running-even-more-simulations.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dat_sim1, <span class="fu">aes</span>(<span class="at">x =</span> games, <span class="at">y =</span> gain)) <span class="sc">+</span></span>
+<span id="cb90-2"><a href="running-even-more-simulations.html#cb90-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb90-3"><a href="running-even-more-simulations.html#cb90-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb90-4"><a href="running-even-more-simulations.html#cb90-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb90-5"><a href="running-even-more-simulations.html#cb90-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;First Simulation of Game-A&quot;</span>,</span>
+<span id="cb90-6"><a href="running-even-more-simulations.html#cb90-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cumulative gains in 1000 games&quot;</span>)</span></code></pre></div>
+<p><img src="exploring-simulations_files/figure-html/unnamed-chunk-62-1.png" width="80%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plotting-the-first-four-simulations" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Plotting the first four simulations<a href="running-even-more-simulations.html#plotting-the-first-four-simulations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let’s take a further step by considering the cumulative gains in the first
+four simulations.</p>
+<p>Because we need to obtain the cumulative gains in each simulation, it’s better
+if we <code>apply()</code> the function <code>cumsum()</code> on each column of the matrix
+<code>simulations</code>. This will produce another 1000-by-100 matrix that we’ll name
+<code>cum_gain_prog</code>:</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="running-even-more-simulations.html#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000-by-100 matrix of cumulative gains </span></span>
+<span id="cb91-2"><a href="running-even-more-simulations.html#cb91-2" aria-hidden="true" tabindex="-1"></a>cum_gain_prog <span class="ot">=</span> <span class="fu">apply</span>(simulations, <span class="dv">2</span>, cumsum)</span></code></pre></div>
+<p>As usual, to call <code>ggplot()</code> we must have the input data into a data.frame
+(or a tibble) object. Here’s one way to create a table <code>dat_4sims</code> containing
+three columns: 1) column <code>games</code>, 2) <code>gain</code> containing the cumulative gain,
+and 3) <code>simulation</code> for the associated simulation.</p>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="running-even-more-simulations.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co"># table with first four simulations</span></span>
+<span id="cb92-2"><a href="running-even-more-simulations.html#cb92-2" aria-hidden="true" tabindex="-1"></a>dat_4sims <span class="ot">=</span> <span class="fu">data.frame</span>(</span>
+<span id="cb92-3"><a href="running-even-more-simulations.html#cb92-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">games =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>number_games, <span class="at">times =</span> <span class="dv">4</span>),</span>
+<span id="cb92-4"><a href="running-even-more-simulations.html#cb92-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gain =</span> <span class="fu">as.vector</span>(cum_gain_prog[ ,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]),</span>
+<span id="cb92-5"><a href="running-even-more-simulations.html#cb92-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">simulation =</span> <span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;simulation-&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>), <span class="at">each =</span> number_games)</span>
+<span id="cb92-6"><a href="running-even-more-simulations.html#cb92-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>Now we are ready to graph the timelines for the first four simulations. In this
+case, we’ll use facets:</p>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="running-even-more-simulations.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> dat_4sims, <span class="fu">aes</span>(<span class="at">x =</span> games, <span class="at">y =</span> gain)) <span class="sc">+</span></span>
+<span id="cb93-2"><a href="running-even-more-simulations.html#cb93-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;gray70&quot;</span>) <span class="sc">+</span></span>
+<span id="cb93-3"><a href="running-even-more-simulations.html#cb93-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb93-4"><a href="running-even-more-simulations.html#cb93-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> simulation) <span class="sc">+</span> </span>
+<span id="cb93-5"><a href="running-even-more-simulations.html#cb93-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_light</span>() <span class="sc">+</span></span>
+<span id="cb93-6"><a href="running-even-more-simulations.html#cb93-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;First 4 Simulations of Game-A&quot;</span>,</span>
+<span id="cb93-7"><a href="running-even-more-simulations.html#cb93-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cumulative gains in 1000 games&quot;</span>)</span></code></pre></div>
+<p><img src="exploring-simulations_files/figure-html/unnamed-chunk-65-1.png" width="90%" style="display: block; margin: auto;" /></p>
+<p>Notice the different trends in each simulation. The 1000 games played in
+simulations 1, 2, and 4 resulted in a positive gain. In contrast, the final
+gain in simulation 3 turned out to be negative.</p>
+</div>
+<div id="plotting-all-simulations" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Plotting all simulations<a href="running-even-more-simulations.html#plotting-all-simulations" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Out of curiosity let’s graph the cumulative gains of all 100
+simulations.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="running-even-more-simulations.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="co"># converting matrix into data.frame</span></span>
+<span id="cb94-2"><a href="running-even-more-simulations.html#cb94-2" aria-hidden="true" tabindex="-1"></a>dat_cum_gain <span class="ot">=</span> <span class="fu">as.data.frame</span>(cum_gain_prog)</span>
+<span id="cb94-3"><a href="running-even-more-simulations.html#cb94-3" aria-hidden="true" tabindex="-1"></a>dat_cum_gain<span class="sc">$</span>games <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span>number_games</span>
+<span id="cb94-4"><a href="running-even-more-simulations.html#cb94-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-5"><a href="running-even-more-simulations.html#cb94-5" aria-hidden="true" tabindex="-1"></a><span class="co"># reshaping table into &quot;long&quot; or &quot;tall&quot; format</span></span>
+<span id="cb94-6"><a href="running-even-more-simulations.html#cb94-6" aria-hidden="true" tabindex="-1"></a>tbl_cum_gain <span class="ot">=</span> <span class="fu">pivot_longer</span>(</span>
+<span id="cb94-7"><a href="running-even-more-simulations.html#cb94-7" aria-hidden="true" tabindex="-1"></a>  dat_cum_gain,</span>
+<span id="cb94-8"><a href="running-even-more-simulations.html#cb94-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="fu">starts_with</span>(<span class="st">&quot;sim&quot;</span>),</span>
+<span id="cb94-9"><a href="running-even-more-simulations.html#cb94-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;simulation&quot;</span>, </span>
+<span id="cb94-10"><a href="running-even-more-simulations.html#cb94-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;gain&quot;</span>)</span></code></pre></div>
+<p>We can now proceed with <code>ggplot()</code></p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="running-even-more-simulations.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> tbl_cum_gain, <span class="fu">aes</span>(<span class="at">x =</span> games, <span class="at">y =</span> gain)) <span class="sc">+</span></span>
+<span id="cb95-2"><a href="running-even-more-simulations.html#cb95-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">group =</span> simulation), </span>
+<span id="cb95-3"><a href="running-even-more-simulations.html#cb95-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.3</span>, <span class="at">size =</span> <span class="fl">0.3</span>) <span class="sc">+</span> </span>
+<span id="cb95-4"><a href="running-even-more-simulations.html#cb95-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;gray50&quot;</span>) <span class="sc">+</span></span>
+<span id="cb95-5"><a href="running-even-more-simulations.html#cb95-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb95-6"><a href="running-even-more-simulations.html#cb95-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;100 Simulations of Game-A&quot;</span>,</span>
+<span id="cb95-7"><a href="running-even-more-simulations.html#cb95-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;Cumulative gains in 1000 games&quot;</span>)</span></code></pre></div>
+<p><img src="exploring-simulations_files/figure-html/unnamed-chunk-67-1.png" width="90%" style="display: block; margin: auto;" /></p>
 
+</div>
+</div>
 </div>
             </section>
 

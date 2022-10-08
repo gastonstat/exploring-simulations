@@ -36,7 +36,7 @@ set in the _output.yml file.</p>" />
   
   
 <link rel="prev" href="playing-game-a-a-few-times.html"/>
-<link rel="next" href="playing-game-a-100-times.html"/>
+<link rel="next" href="playing-game1-100times.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -171,19 +171,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="vectorized-loops-with-apply.html"><a href="vectorized-loops-with-apply.html#number-of-wins-with-apply"><i class="fa fa-check"></i><b>4.2.1</b> Number of wins with <code>apply()</code></a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html"><i class="fa fa-check"></i><b>5</b> Playing Game-A 100 times</a>
+<li class="chapter" data-level="5" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html"><i class="fa fa-check"></i><b>5</b> Playing Game-A 100 times</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Plotting Cumulative Gains</a>
+<li class="chapter" data-level="5.1" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#computing-cumulative-gains"><i class="fa fa-check"></i><b>5.1</b> Computing Cumulative Gains</a></li>
+<li class="chapter" data-level="5.2" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#plotting-cumulative-gains"><i class="fa fa-check"></i><b>5.2</b> Plotting Cumulative Gains</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-plot"><i class="fa fa-check"></i><b>5.1.1</b> Cumulative Gains with <code>plot()</code></a></li>
-<li class="chapter" data-level="5.1.2" data-path="playing-game-a-100-times.html"><a href="playing-game-a-100-times.html#cumulative-gains-with-ggplot2"><i class="fa fa-check"></i><b>5.1.2</b> Cumulative Gains with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.1" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#cumulative-gains-with-plot"><i class="fa fa-check"></i><b>5.2.1</b> Cumulative Gains with <code>plot()</code></a></li>
+<li class="chapter" data-level="5.2.2" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#cumulative-gains-with-ggplot2"><i class="fa fa-check"></i><b>5.2.2</b> Cumulative Gains with <code>ggplot2</code></a></li>
+<li class="chapter" data-level="5.2.3" data-path="playing-game1-100times.html"><a href="playing-game1-100times.html#animated-ggplot-graphic"><i class="fa fa-check"></i><b>5.2.3</b> Animated ggplot graphic</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="running-various-simulations.html"><a href="running-various-simulations.html"><i class="fa fa-check"></i><b>6</b> Running Various Simulations</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="running-various-simulations.html"><a href="running-various-simulations.html#embedded-for-loops"><i class="fa fa-check"></i><b>6.1</b> Embedded <code>for()</code> loops</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html"><i class="fa fa-check"></i><b>7</b> Running Even More Simulations</a></li>
+<li class="chapter" data-level="7" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html"><i class="fa fa-check"></i><b>7</b> Running Even More Simulations</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#graphing-cumulative-gains"><i class="fa fa-check"></i><b>7.1</b> Graphing Cumulative Gains</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-the-first-simulation"><i class="fa fa-check"></i><b>7.1.1</b> Plotting the first simulation</a></li>
+<li class="chapter" data-level="7.1.2" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-the-first-four-simulations"><i class="fa fa-check"></i><b>7.1.2</b> Plotting the first four simulations</a></li>
+<li class="chapter" data-level="7.1.3" data-path="running-even-more-simulations.html"><a href="running-even-more-simulations.html#plotting-all-simulations"><i class="fa fa-check"></i><b>7.1.3</b> Plotting all simulations</a></li>
+</ul></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://www.gastonsanchez.com" target="blank">Gaston Sanchez</a></li>
 
@@ -206,14 +216,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="vectorized-loops-with-apply" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">4</span> Vectorized loops with <code>apply()</code><a href="vectorized-loops-with-apply.html#vectorized-loops-with-apply" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We finish the last chapter writing code that simulates playing Game-A 10 times.
+<p>We finished the last chapter writing code that simulates playing Game-A 10 times.
 For recap purposes, the implemented code is displayed below:</p>
 <div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="vectorized-loops-with-apply.html#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">133</span>)</span>
 <span id="cb46-2"><a href="vectorized-loops-with-apply.html#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-3"><a href="vectorized-loops-with-apply.html#cb46-3" aria-hidden="true" tabindex="-1"></a>die <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
 <span id="cb46-4"><a href="vectorized-loops-with-apply.html#cb46-4" aria-hidden="true" tabindex="-1"></a>number_games <span class="ot">=</span> <span class="dv">10</span></span>
 <span id="cb46-5"><a href="vectorized-loops-with-apply.html#cb46-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb46-6"><a href="vectorized-loops-with-apply.html#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize output matrix</span></span>
+<span id="cb46-6"><a href="vectorized-loops-with-apply.html#cb46-6" aria-hidden="true" tabindex="-1"></a><span class="co"># initialize output matrix (to be populated in for-loop)</span></span>
 <span id="cb46-7"><a href="vectorized-loops-with-apply.html#cb46-7" aria-hidden="true" tabindex="-1"></a>games <span class="ot">=</span> <span class="fu">matrix</span>(<span class="dv">0</span>, <span class="at">nrow =</span> number_games, <span class="at">ncol =</span> <span class="dv">4</span>)</span>
 <span id="cb46-8"><a href="vectorized-loops-with-apply.html#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb46-9"><a href="vectorized-loops-with-apply.html#cb46-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (game <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>number_games) {</span>
@@ -224,10 +234,10 @@ For recap purposes, the implemented code is displayed below:</p>
 <span id="cb46-14"><a href="vectorized-loops-with-apply.html#cb46-14" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(games) <span class="ot">=</span> <span class="fu">paste0</span>(<span class="st">&quot;roll&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span>
 <span id="cb46-15"><a href="vectorized-loops-with-apply.html#cb46-15" aria-hidden="true" tabindex="-1"></a>games</span></code></pre></div>
 <p>The punchline of this piece of code has to do with the <code>for()</code> loop, storing
-the outputs of each game in the rows of the <code>games</code> matrix.</p>
+the outputs of each game in the corresponding row of the <code>games</code> matrix.</p>
 <p>Additionally, we also wrote a second <code>for()</code> loop to determine whether each
 game—each row in <code>games</code>—had at least one six; this was done with the
-<code>any()</code> function. This is illustrated in the following diagram:</p>
+<code>any()</code> function, and it’s depicted in the following diagram:</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-29"></span>
 <img src="images/demere-10-games-any.png" alt="Diagram depicting the application of any() to all the rows of matrix games." width="90%" />
 <p class="caption">
@@ -254,9 +264,10 @@ row of <code>games</code>:</p>
 ##     12     13     16     15      7     13     13      8     10     17</code></pre>
 <p>We pass three inputs to <code>apply()</code>. The first ingredient is the input matrix,
 the second ingredient specifies the <code>MARGIN</code> value, and the third ingredient
-is the function to be applied.</p>
+<code>FUN</code> is the function to be applied. <code>MARGIN = 1</code> means that the function <code>FUN</code>
+is applied row-by-row.</p>
 <p>Here’s another example. Say you want to obtain the product of all the elements
-in each column of <code>games</code>:</p>
+in each column of <code>games</code>. This requires specifying <code>MARGIN = 2</code> and <code>FUN = prod</code>:</p>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="vectorized-loops-with-apply.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># column product</span></span>
 <span id="cb49-2"><a href="vectorized-loops-with-apply.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(<span class="at">X =</span> games, <span class="at">MARGIN =</span> <span class="dv">2</span>, <span class="at">FUN =</span> prod)</span></code></pre></div>
 <pre><code>## roll1 roll2 roll3 roll4 
@@ -269,10 +280,10 @@ in each column of <code>games</code>:</p>
 </div>
 <div id="anonymous-functions-and-apply" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Anonymous functions and <code>apply()</code><a href="vectorized-loops-with-apply.html#anonymous-functions-and-apply" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Some times, there is no built-in function to do what we want. For instance,
-say you want to obtain the <strong>range</strong> of each row, that is, the maximum minus
-the minimum. R has a <code>range()</code> function but it does not return a single value,
-it just gives you the min and the max of an input vector:</p>
+<p>Sometimes, there is no built-in function to be used for the argument <code>FUN</code>.
+For instance, say you want to obtain the <strong>range</strong> of each row, that is, the
+maximum minusthe minimum. R has a <code>range()</code> function but it does not return a
+single value, it just gives you the min and the max of an input vector:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="vectorized-loops-with-apply.html#cb53-1" aria-hidden="true" tabindex="-1"></a>game_1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">1</span>)</span>
 <span id="cb53-2"><a href="vectorized-loops-with-apply.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(game_1)</span></code></pre></div>
 <pre><code>## [1] 1 6</code></pre>
@@ -337,7 +348,7 @@ vector is equal to six, we need to create an <em>anonymous</em> function for the
         </div>
       </div>
 <a href="playing-game-a-a-few-times.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="playing-game-a-100-times.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="playing-game1-100times.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
