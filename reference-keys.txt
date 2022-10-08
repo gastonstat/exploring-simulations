@@ -25,7 +25,7 @@ playing-game1-100times
 computing-cumulative-gains
 plotting-cumulative-gains
 cumulative-gains-with-plot
-cumulative-gains-with-ggplot2
+cum-gains-ggplot
 animated-ggplot-graphic
 running-various-simulations
 embedded-for-loops
