@@ -12,7 +12,7 @@ set in the _output.yml file.</p>" />
 
   <meta property="og:title" content="4 Vectorized loops with apply() | Exploring Simulations" />
   <meta property="og:type" content="book" />
-  <meta property="og:image" content="/images/demere-cover.png" />
+  <meta property="og:image" content="https://www.gastonsanchez.com/exploring-simulations/images/demere-cover.png" />
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
@@ -24,7 +24,7 @@ set in the _output.yml file.</p>" />
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::gitbook,
 set in the _output.yml file.</p>" />
-  <meta name="twitter:image" content="/images/demere-cover.png" />
+  <meta name="twitter:image" content="https://www.gastonsanchez.com/exploring-simulations/images/demere-cover.png" />
 
 <meta name="author" content="Gaston Sanchez" />
 
@@ -282,8 +282,8 @@ in each column of <code>games</code>. This requires specifying <code>MARGIN = 2<
 <h2><span class="header-section-number">4.2</span> Anonymous functions and <code>apply()</code><a href="vectorized-loops-with-apply.html#anonymous-functions-and-apply" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Sometimes, there is no built-in function to be used for the argument <code>FUN</code>.
 For instance, say you want to obtain the <strong>range</strong> of each row, that is, the
-maximum minusthe minimum. R has a <code>range()</code> function but it does not return a
-single value, it just gives you the min and the max of an input vector:</p>
+maximum minus the minimum. R has a <code>range()</code> function but it does not return a
+single value, it just gives you the <code>min()</code> and the <code>max()</code> of an input vector:</p>
 <div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="vectorized-loops-with-apply.html#cb53-1" aria-hidden="true" tabindex="-1"></a>game_1 <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">1</span>)</span>
 <span id="cb53-2"><a href="vectorized-loops-with-apply.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">range</span>(game_1)</span></code></pre></div>
 <pre><code>## [1] 1 6</code></pre>
@@ -293,9 +293,9 @@ single value, it just gives you the min and the max of an input vector:</p>
 <span id="cb55-3"><a href="vectorized-loops-with-apply.html#cb55-3" aria-hidden="true" tabindex="-1"></a>range_1</span></code></pre></div>
 <pre><code>## [1] 5</code></pre>
 <p>Because R does not have a built-in function that returns the range, we need
-to provide this function for the <code>FUN</code> argument of <code>apply()</code>. When the function
+to provide this function to the <code>FUN</code> argument of <code>apply()</code>. When the function
 to be provided is fairly simple, we can create an <strong>anonymous function</strong>
-inside <code>apply()</code>:</p>
+inside <code>apply()</code>, here’s how we do it:</p>
 <div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="vectorized-loops-with-apply.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co"># row ranges (with anonymous function)</span></span>
 <span id="cb57-2"><a href="vectorized-loops-with-apply.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(</span>
 <span id="cb57-3"><a href="vectorized-loops-with-apply.html#cb57-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> games, </span>
@@ -303,12 +303,15 @@ inside <code>apply()</code>:</p>
 <span id="cb57-5"><a href="vectorized-loops-with-apply.html#cb57-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> <span class="cf">function</span>(x) <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x))</span></code></pre></div>
 <pre><code>##  game1  game2  game3  game4  game5  game6  game7  game8  game9 game10 
 ##      5      5      3      5      3      2      5      3      5      5</code></pre>
-<p>The reason why the provided function to <code>FUN</code> is called an anonymous function
-is because the created function has no name.</p>
+<p>The reason why the provided function to the argument <code>FUN</code> is called an anonymous
+function is because the created function has no name.</p>
 <p>An alternative option is to first create a function outside <code>apply()</code>, and
 then pass this function like any other function. This alternative is often
 preferred when the body of the function to be passed to <code>apply()</code> involves
 several lines of code.</p>
+<p>For example, in the following code chunk we create a function <code>vector_range()</code>—that
+computes the statistical range—and then we pass this function to <code>apply()</code> in
+order to get the range in each row of the matrix <code>games</code>:</p>
 <div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="vectorized-loops-with-apply.html#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="co"># auxiliary function to compute range</span></span>
 <span id="cb59-2"><a href="vectorized-loops-with-apply.html#cb59-2" aria-hidden="true" tabindex="-1"></a>vector_range <span class="ot">=</span> <span class="cf">function</span>(x) {</span>
 <span id="cb59-3"><a href="vectorized-loops-with-apply.html#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">max</span>(x) <span class="sc">-</span> <span class="fu">min</span>(x)</span>
@@ -318,12 +321,13 @@ several lines of code.</p>
 <span id="cb59-7"><a href="vectorized-loops-with-apply.html#cb59-7" aria-hidden="true" tabindex="-1"></a><span class="fu">apply</span>(</span>
 <span id="cb59-8"><a href="vectorized-loops-with-apply.html#cb59-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> games, </span>
 <span id="cb59-9"><a href="vectorized-loops-with-apply.html#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">MARGIN =</span> <span class="dv">1</span>, </span>
-<span id="cb59-10"><a href="vectorized-loops-with-apply.html#cb59-10" aria-hidden="true" tabindex="-1"></a>  vector_range)</span></code></pre></div>
+<span id="cb59-10"><a href="vectorized-loops-with-apply.html#cb59-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">FUN =</span> vector_range)</span></code></pre></div>
 <pre><code>##  game1  game2  game3  game4  game5  game6  game7  game8  game9 game10 
 ##      5      5      3      5      3      2      5      3      5      5</code></pre>
 <div id="number-of-wins-with-apply" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Number of wins with <code>apply()</code><a href="vectorized-loops-with-apply.html#number-of-wins-with-apply" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Because there’s no default function that computes if <code>any()</code> element of a
+<p>Let’s go back to the task of finding which games are wins.
+Because there’s no default function that computes if <code>any()</code> element of a
 vector is equal to six, we need to create an <em>anonymous</em> function for the
 <code>FUN</code> argument:</p>
 <div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="vectorized-loops-with-apply.html#cb61-1" aria-hidden="true" tabindex="-1"></a>wins <span class="ot">=</span> <span class="fu">apply</span>(</span>
